@@ -36,7 +36,7 @@ All settings are managed in `config.py`. You do not need to edit any other files
 * `makemkv_path` / `handbrake_path`: Set these to `None` to auto-detect. If the script cannot find them, paste the full path to the `.exe` (e.g., `r"C:\Program Files\HandBrake\HandBrakeCLI.exe"`).
 
 ### 2. Video Settings
-[See more info about CLI parameters here](https://handbrake.fr/docs/en/1.9.0/cli/command-line-reference.html)
+[Comprehensive list of CLI parameters](https://handbrake.fr/docs/en/1.9.0/cli/command-line-reference.html)
 
 Adjust `video_codec` and `video_quality` to balance speed vs. storage size.
 
