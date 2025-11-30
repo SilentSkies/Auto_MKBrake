@@ -27,7 +27,7 @@
 
 ## Configuration
 
-All settings are managed in `config.py` using a Python Dataclass. You do not need to edit the logic files to change settings.
+All settings are managed in `config.py`. You do not need to edit any other files to change settings.
 
 ### 1. Paths & Binaries
 * `drive_letter`: Your optical drive (e.g., `D:`).
