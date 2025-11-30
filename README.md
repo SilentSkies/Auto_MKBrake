@@ -20,6 +20,9 @@
 3.  **HandBrakeCLI:** The command-line version of HandBrake.
     * Download: [HandBrake Downloads](https://handbrake.fr/downloads.php) (Select Command Line Version).
 
+## ![Warning]
+This application is CPU and GPU intensive. As soon as encoding starts it will consume *ALL* of the available resources to complete the task in as short a time as possible.
+
 ## Installation
 
 1.  Clone this repository (or download the files to a folder).
@@ -79,6 +82,15 @@ Adjust `audio_codec` and `audio_mixdown` to choose between archival perfection o
     * Once the rip is done, the disc ejects.
     * **Simultaneously**, a background worker grabs that raw file and starts encoding it.
     * Insert the next disc straight away.
+
+4. **reprocess.py**
+    If the script goes wrong at any point and you are left with a partly processed encoded file you can use `reprocess.py` to finish up.
+    * Delete any part encoded files and folder created by the previous script.
+    * Run `python reprocess.py`
+    * The script scans the raw folder for any mkv files and checks the encoded folder to see if they already exist.
+    * If they don't, it then queues the jobs up to be reprocessed by Handbrake according to the same seetings as in `config.py`.
+    * If there are multiple files it will process them simultaneously.
+
 
 ## Project Structure
 
