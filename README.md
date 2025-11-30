@@ -27,20 +27,40 @@
 
 ## Configuration
 
-All settings are inside `config.py`. You don't need to touch the main code to change your preferences.
+All settings are managed in `config.py` using a Python Dataclass. You do not need to edit the logic files to change settings.
 
-Open `config.py` to adjust:
+### 1. Paths & Binaries
+* `drive_letter`: Your optical drive (e.g., `D:`).
+* `raw_directory`: Temporary storage for the massive raw rips (SSD recommended).
+* `encoded_directory`: Final destination for compressed files.
+* `makemkv_path` / `handbrake_path`: Set these to `None` to auto-detect. If the script cannot find them, paste the full path to the `.exe` (e.g., `r"C:\Program Files\HandBrake\HandBrakeCLI.exe"`).
 
-* **Paths:**
-    * `drive_letter`: Your optical drive (e.g., `D:`).
-    * `raw_directory`: Temporary folder for the large raw rips (SSD recommended).
-    * `encoded_directory`: Where you want the final files to go.
-* **Binaries:**
-    * If you leave `makemkv_path` or `handbrake_path` as `None`, the script tries to find them automatically. If that fails, paste the full path to the `.exe` here.
-* **Encoding:**
-    * `video_codec`: Defaults to `nvenc_h265` (Nvidia GPU). Change to `x265` for CPU-only or `vce_h265` for AMD cards.
-    * `video_quality`: The RF value (Default `23`). Lower numbers mean higher quality but larger file sizes.
-    * `audio_mixdown`: Defaults to `7point1`.
+### 2. Video Settings
+Adjust `video_codec` and `video_quality` to balance speed vs. storage size.
+
+| Setting | Options | Description |
+| :--- | :--- | :--- |
+| **`video_codec`** | `nvenc_h265` | **(Default)** Nvidia GPU. Fast, high efficiency. |
+| | `nvenc_h264` | Nvidia GPU. Older format, highly compatible. |
+| | `x265` | CPU Only. Slow, but creates the smallest files. |
+| | `x264` | CPU Only. Industry standard compatibility. |
+| | `vce_h265` | AMD Radeon GPU encoding. |
+| | `qsv_h265` | Intel QuickSync (integrated graphics) encoding. |
+| **`video_quality`** | `20` - `25` | **RF Value.** `20` is high quality/large file. `25` is lower quality/small file. Default is `23`. |
+| **`video_codec_preset`** | `p1` - `p7` | **(For NVENC)** `p7` is slowest/best, `p1` is fastest/worst. Default is `p5`. |
+| | `slow` / `fast` | **(For CPU)** Use `slow`, `medium`, or `fast`. |
+
+### 3. Audio Settings
+Adjust `audio_codec` and `audio_mixdown` to choose between archival perfection or space saving.
+
+| Setting | Options | Description |
+| :--- | :--- | :--- |
+| **`audio_codec`** | `av_aac` | **(Default)** Best compatibility. Compress to AAC. |
+| | `copy` | **Passthrough.** Bit-for-bit clone of the Bluray audio (TrueHD/DTS-HD). Largest size. |
+| | `ac3` | Dolby Digital. Good for older optical-cable amplifiers. |
+| **`audio_mixdown`** | `7point1` | **(Default)** Preserves/Upmixes to 7.1 channels. Safe for all sources. |
+| | `5point1` | Standard Surround. Merges side/rear channels. |
+| | `stereo` | 2.0 Channels. Best for TV speakers/phones. |
 
 ## Usage
 
