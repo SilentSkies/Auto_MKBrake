@@ -20,7 +20,7 @@
 3.  **HandBrakeCLI:** The command-line version of HandBrake.
     * Download: [HandBrake Downloads](https://handbrake.fr/downloads.php) (Select Command Line Version).
 
-## ![Warning]
+## Warning
 This application is CPU and GPU intensive. As soon as encoding starts it will consume *ALL* of the available resources to complete the task in as short a time as possible.
 
 ## Installation
