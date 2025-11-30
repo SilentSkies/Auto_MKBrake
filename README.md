@@ -21,9 +21,7 @@
 
 ## Installation
 
-1.  Create a folder named `Auto_MKBrake`.
-2.  Place the five source files (`main.py`, `config.py`, `utils.py`, `disc_ops.py`, `encoding.py`) inside this folder.
-3.  Ensure your optical drive is connected.
+1.  Clone the repository and run main.py
 
 ## Configuration
 
