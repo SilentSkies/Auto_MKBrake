@@ -77,6 +77,7 @@ Adjust `audio_codec` and `audio_mixdown` to choose between archival perfection o
 3.  **How it works:**
     * The script waits for you to insert a disc.
     * It scans the disc and shows you a list of titles (ID, Length, and Size).
+    * It hides titles that are deliberate obfuscation. 
     * **Type the ID** you want to rip (e.g., `0` for the movie, or `0,1,2` for episodes).
     * The script rips the file to the `Raw` folder.
     * Once the rip is done, the disc ejects.
