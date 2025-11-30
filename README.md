@@ -8,7 +8,7 @@
 
 * **Rip & Encode Simultaneously:** You don't have to wait for HandBrake to finish. As soon as the disc is ripped, it ejects, and the encoding starts in the background so you can pop in the next disc immediately.
 * **Manual Track Selection:** Some discs hide the real movie inside hundreds of fake playlists to trick automation. This script pauses to let you pick the correct Title ID once you see the list of tracks it is usually obvious which is the correct title.
-* **Defaults** By default, this script encodes video using `nvenc_265` creating a `.mp4` file for the best platform compatibility using one of the fastest, modern codecs. It preserves 7.1 surround sound (converting to AAC) and  to ensure no channels are lost during downmixing. All of these settings are configurable through `config.py`.
+* **Defaults** By default, this script encodes video using `nvenc_265` creating a `.mp4` file for the best platform compatibility using one of the fastest, modern codecs. It preserves 7.1 surround sound (converting to AAC) to ensure no channels are lost during downmixing. All of these settings are configurable through `config.py`.
 * **Smart Priority:** Encoding runs at a "Below Normal" system priority. This ensures your computer prioritises reading the disc first, which prevents read errors during the rip.
 * **Resilient:** If a specific file fails to encode, the script simply logs the error and moves on to the next job rather than stopping everything.
 * **Auto Cleanup:** The raw MKV file is deleted only after the script confirms the new compressed file has been created successfully.
