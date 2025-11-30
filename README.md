@@ -7,11 +7,12 @@
 ## Key Features
 
 * **Rip & Encode Simultaneously:** You don't have to wait for HandBrake to finish. As soon as the disc is ripped, it ejects, and the encoding starts in the background so you can pop in the next disc immediately.
-* **Manual Track Selection:** Some discs hide the real movie inside hundreds of fake playlists to trick automation. This script pauses to let you pick the correct Title ID, ensuring you don't waste time ripping the wrong file.
-* **Audio Safety:** By default, this script preserves 7.1 surround sound (converting to AAC) to ensure no channels are lost during downmixing. You can also switch this to "Passthrough" to keep the original audio exactly as it is on the disc.
-* **Smart Priority:** Encoding runs at a "Below Normal" system priority. This ensures your computer prioritises reading the disc first, which helps prevent read errors during the rip.
+* **Manual Track Selection:** Some discs hide the real movie inside hundreds of fake playlists to trick automation. This script pauses to let you pick the correct Title ID once you see the list of tracks it is usually obvious which is the correct title.
+* **Defaults** By default, this script encodes video using `nvenc_265` creating a `.mp4` file for the best platform compatibility using one of the fastest, modern codecs. It preserves 7.1 surround sound (converting to AAC) and  to ensure no channels are lost during downmixing. All of these settings are configurable through `config.py`.
+* **Smart Priority:** Encoding runs at a "Below Normal" system priority. This ensures your computer prioritises reading the disc first, which prevents read errors during the rip.
 * **Resilient:** If a specific file fails to encode, the script simply logs the error and moves on to the next job rather than stopping everything.
 * **Auto Cleanup:** The raw MKV file is deleted only after the script confirms the new compressed file has been created successfully.
+* **Reprocessing:** If the script does fail the `reprocessor.py` script can detect mkv files and restart the encoder.
 
 ## Prerequisites
 
@@ -33,8 +34,8 @@ All settings are managed in `config.py`. You do not need to edit any other files
 
 ### 1. Paths & Binaries
 * `drive_letter`: Your optical drive (e.g., `D:`).
-* `raw_directory`: Temporary storage for the raw rips (SSD recommended with 100GB+ free space).
-* `encoded_directory`: Final destination for compressed files.
+* `raw_directory`: Temporary storage for the raw rips (MKV files can be up to 60GB, if you intend to rip more at once ensure you have the free space for this).
+* `encoded_directory`: Destination for the encoded files.
 * `makemkv_path` / `handbrake_path`: Set these to `None` to auto-detect. If the script cannot find them, paste the full path to the `.exe` (e.g., `r"C:\Program Files\HandBrake\HandBrakeCLI.exe"`).
 
 ### 2. Video Settings
