@@ -83,6 +83,7 @@ Adjust `audio_codec` and `audio_mixdown` to choose between archival perfection o
     * Insert the next disc straight away.
 
 4. **reprocess.py**
+   
     If the script goes wrong at any point and you are left with a partly processed encoded file you can use `reprocess.py` to finish up.
     * Delete any part encoded files and folder created by the previous script.
     * Run `python reprocess.py`
