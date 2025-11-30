@@ -22,7 +22,7 @@
 
 ## Installation
 
-1.  Clone the repository and run main.py
+1.  Clone this repository.
 
 ## Configuration
 
