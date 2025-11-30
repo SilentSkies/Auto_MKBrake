@@ -37,6 +37,7 @@ All settings are managed in `config.py`. You do not need to edit any other files
 
 ### 2. Video Settings
 [See more info about CLI parameters here](https://handbrake.fr/docs/en/1.9.0/cli/command-line-reference.html)
+
 Adjust `video_codec` and `video_quality` to balance speed vs. storage size.
 
 | Setting | Options | Description |
