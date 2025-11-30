@@ -51,7 +51,7 @@ Adjust `video_codec` and `video_quality` to balance speed vs. storage size.
 | | `x264` | CPU Only. Industry standard compatibility. |
 | | `vce_h265` | AMD Radeon GPU encoding. |
 | | `qsv_h265` | Intel QuickSync (integrated graphics) encoding. |
-| **`video_quality`** | `20` - `28` | **RF/CQ Value.** Controls quality. <br>**Note:** The scale changes depending on the codec selected. <br>• **x264:** `20`-`23` is standard. <br>• **x265:** `24`-`28` is standard. <br>• **NVENC:** `23` is a safe starting point. <br>Lower number = Higher quality (larger file). |
+| **`video_quality`** | `20` - `28` | **RF/CQ Value.** Controls quality. <br>**Note:** The scale changes depending on the codec selected. <br>• **x264:** `20`-`23` is standard. <br>• **x265:** `24`-`28` <br>• **NVENC:** `23` is a middle of the road. <br>Lower number = Higher quality (larger file). |
 | **`video_codec_preset`** | `p1` - `p7` | **(For NVENC)** `p7` is slowest/best, `p1` is fastest/worst. Default is `p5`. |
 | | `slow` / `fast` | **(For CPU)** Use `slow`, `medium`, or `fast`. |
 
