@@ -84,9 +84,9 @@ Adjust `audio_codec` and `audio_mixdown` to choose between archival perfection o
     * **Simultaneously**, a background worker grabs that raw file and starts encoding it.
     * Insert the next disc straight away.
 
-4. **reprocess.py**
+4. **Failed Encodes**
    
-    If the script goes wrong at any point and you are left with a partly processed encoded file you can use `reprocess.py` to finish up.
+    Sometimes things go wrong and you are left with a partly processed encoded file you can use `reprocess.py` to finish up.
     * Delete any part encoded files and folder created by the previous script.
     * Run `python reprocess.py`
     * The script scans the raw folder for any mkv files and checks the encoded folder to see if they already exist.
