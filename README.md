@@ -2,72 +2,72 @@
 
 # Auto_MKBrake
 
-**Auto_MKBrake** is a robust, concurrent pipeline for archiving Blu-ray and DVD media. It orchestrates `MakeMKV` and `HandBrakeCLI` to rip and encode media in parallel, significantly reducing the time required to process a batch of physical discs.
+**Auto_MKBrake** is a helper tool to speed up archiving your DVDs and Blu-rays. It combines `MakeMKV` and `HandBrakeCLI` into a single workflow that lets you rip a new disc while your computer is still busy encoding the previous one.
 
 ## Key Features
 
-* **Concurrency Pipeline:** The system rips the current disc while background threads encode previously ripped files. This ensures your optical drive is never waiting for an encode to finish.
-* **Manual Selection (Anti-Obfuscation):** The script pauses to allow the user to select the specific Title ID. This is the only reliable way to handle discs with "playlist obfuscation" (hundreds of fake playlists), common on Lionsgate releases.
-* **Audio Fidelity:** Default configuration preserves **7.1 surround sound**. It upmixes/preserves channels to 7.1 AAC to prevent data loss from downmixing, or can be set to Passthrough for lossless archival.
-* **Resource Management:** Encoding threads run at **Below Normal** process priority. This guarantees that the resource-heavy HandBrake process never starves the MakeMKV rip process, preventing read errors.
-* **Robust Error Handling:** Worker threads are "immortal". If a specific file fails to encode, the thread logs the error and moves to the next job without crashing the main application.
-* **Safe Cleanup:** Raw MKV files are only deleted if the encoded file exists and has a valid file size.
+* **Rip & Encode Simultaneously:** You don't have to wait for HandBrake to finish. As soon as the disc is ripped, it ejects, and the encoding starts in the background so you can pop in the next disc immediately.
+* **Manual Track Selection:** Some discs (especially from Lionsgate) hide the real movie inside hundreds of fake playlists to trick automation. This script pauses to let you pick the correct Title ID, ensuring you don't waste time ripping the wrong file.
+* **Audio Safety:** By default, this script preserves 7.1 surround sound (converting to AAC) to ensure no channels are lost during downmixing. You can also switch this to "Passthrough" to keep the original audio exactly as it is on the disc.
+* **Smart Priority:** Encoding runs at a "Below Normal" system priority. This ensures your computer prioritises reading the disc first, which helps prevent read errors during the rip.
+* **Resilient:** If a specific file fails to encode, the script simply logs the error and moves on to the next job rather than stopping everything.
+* **Auto Cleanup:** The massive raw MKV file is deleted only after the script confirms the new compressed file has been created successfully.
 
 ## Prerequisites
 
 1.  **Python 3.10+**
-2.  **MakeMKV:** You must have MakeMKV installed and a valid license key (or the [current beta key](https://cable.ayra.ch/makemkv/)) active.
+2.  **MakeMKV:** You will need MakeMKV installed with a valid license (or the [current beta key](https://cable.ayra.ch/makemkv/)).
 3.  **HandBrakeCLI:** The command-line version of HandBrake.
     * Download: [HandBrake Downloads](https://handbrake.fr/downloads.php) (Select CLI).
 
 ## Installation
 
-1.  Clone this repository.
+1.  Clone this repository (or download the files to a folder).
+2.  Ensure you have the 5 source files: `main.py`, `config.py`, `utils.py`, `disc_ops.py`, `encoding.py`.
 
 ## Configuration
 
-All settings are managed in `config.py` using a Python Dataclass. You do not need to edit the logic files to change settings.
+All settings are inside `config.py`. You don't need to touch the main code to change your preferences.
 
 Open `config.py` to adjust:
 
 * **Paths:**
     * `drive_letter`: Your optical drive (e.g., `D:`).
-    * `raw_directory`: Temporary storage for large MKV files (SSD recommended).
-    * `encoded_directory`: Final destination for compressed MP4 files.
+    * `raw_directory`: Temporary folder for the large raw rips (SSD recommended).
+    * `encoded_directory`: Where you want the final files to go.
 * **Binaries:**
-    * If `makemkv_path` or `handbrake_path` are set to `None`, the script looks for them in your Windows System PATH. Otherwise, provide the full path to the `.exe`.
+    * If you leave `makemkv_path` or `handbrake_path` as `None`, the script tries to find them automatically. If that fails, paste the full path to the `.exe` here.
 * **Encoding:**
-    * `video_codec`: Defaults to `nvenc_h265` (Nvidia GPU). Change to `x265` for CPU-only or `vce_h265` for AMD.
-    * `video_quality`: The RF value (Default `23`). Lower is higher quality/larger file.
+    * `video_codec`: Defaults to `nvenc_h265` (Nvidia GPU). Change to `x265` for CPU-only or `vce_h265` for AMD cards.
+    * `video_quality`: The RF value (Default `23`). Lower numbers mean higher quality but larger file sizes.
     * `audio_mixdown`: Defaults to `7point1`.
 
 ## Usage
 
 1.  Open a terminal (Command Prompt or PowerShell) in the project folder.
-2.  Run the application:
+2.  Run the script:
     ```bash
     python main.py
     ```
-3.  **The Workflow:**
-    * The script waits for a disc.
-    * Insert a disc.
-    * The script scans the titles and displays a table of ID, Duration, and Size.
-    * **Input the ID** you wish to rip (e.g., `0` for the main movie, or `0,1,2` for episodes).
+3.  **How it works:**
+    * The script waits for you to insert a disc.
+    * It scans the disc and shows you a list of titles (ID, Length, and Size).
+    * **Type the ID** you want to rip (e.g., `0` for the movie, or `0,1,2` for episodes).
     * The script rips the file to the `Raw` folder.
-    * Once ripping is done, the disc ejects.
-    * **Simultaneously**, the background worker picks up the raw file and begins encoding it to the `Encoded` folder.
-    * Insert the next disc immediately; do not wait for the encode to finish.
+    * Once the rip is done, the disc ejects.
+    * **Simultaneously**, a background worker grabs that raw file and starts encoding it.
+    * Insert the next disc straight away.
 
 ## Project Structure
 
-* `main.py`: The entry point. Handles the main loop, user input, and queuing jobs.
-* `config.py`: A Singleton Dataclass containing all user settings.
-* `utils.py`: Shared utilities for thread-safe logging and process management.
-* `disc_ops.py`: Handles interaction with the physical drive and MakeMKV.
-* `encoding.py`: Handles the HandBrake worker threads.
+* `main.py`: The main entry point that runs the show.
+* `config.py`: Where all your settings live.
+* `utils.py`: Handles logging and background processes.
+* `disc_ops.py`: Handles the MakeMKV ripping logic.
+* `encoding.py`: Handles the HandBrake encoding logic.
 
 ## Troubleshooting
 
-* **"Missing executable"**: Ensure the paths in `config.py` point exactly to `makemkvcon64.exe` and `HandBrakeCLI.exe`.
-* **Rip Fails**: Check the physical disc for scratches. Check the generated log file in your Raw directory for specific SCSI errors.
-* **Audio is missing**: If using `nvenc`, ensure your driver supports the audio codec. The script defaults to `av_aac` (software audio encoding) which is the most compatible.
+* **"Missing executable"**: Check `config.py`. You might need to paste the full path to `makemkvcon64.exe` or `HandBrakeCLI.exe` if they aren't in your system PATH.
+* **Rip Fails**: Check the disc for scratches or smudges. Check the log file in your Raw directory to see if the drive reported read errors.
+* **Audio is missing**: If using `nvenc`, make sure your drivers are up to date. The default `av_aac` is the safest option for compatibility.
