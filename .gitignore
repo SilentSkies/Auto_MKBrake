@@ -1,0 +1,13 @@
+__pycache__/
+Logs/
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+*.py[cod]
+*$py.class
+*.mkv
+*.mp4
+*.iso
+*.ts
+*.log
