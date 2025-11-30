@@ -16,8 +16,7 @@
 ## Prerequisites
 
 1.  **Python 3.10+**
-2.  **MakeMKV:** You must have MakeMKV installed and a valid license key (or the current beta key) active.
-    * *Note:* Ensure you have the Java Runtime Environment (JRE) installed so MakeMKV can attempt to identify "Main Features".
+2.  **MakeMKV:** You must have MakeMKV installed and a valid license key (or the [current beta key](https://cable.ayra.ch/makemkv/)) active.
 3.  **HandBrakeCLI:** The command-line version of HandBrake.
     * Download: [HandBrake Downloads](https://handbrake.fr/downloads.php) (Select CLI).
 
