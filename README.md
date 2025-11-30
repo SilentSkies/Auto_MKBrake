@@ -26,7 +26,6 @@ This application is CPU and GPU intensive. As soon as encoding starts it will co
 ## Installation
 
 1.  Clone this repository (or download the files to a folder).
-2.  Ensure you have the 5 source files: `main.py`, `config.py`, `utils.py`, `disc_ops.py`, `encoding.py`.
 
 ## Configuration
 
