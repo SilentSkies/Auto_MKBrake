@@ -11,7 +11,7 @@
 * **Audio Safety:** By default, this script preserves 7.1 surround sound (converting to AAC) to ensure no channels are lost during downmixing. You can also switch this to "Passthrough" to keep the original audio exactly as it is on the disc.
 * **Smart Priority:** Encoding runs at a "Below Normal" system priority. This ensures your computer prioritises reading the disc first, which helps prevent read errors during the rip.
 * **Resilient:** If a specific file fails to encode, the script simply logs the error and moves on to the next job rather than stopping everything.
-* **Auto Cleanup:** The massive raw MKV file is deleted only after the script confirms the new compressed file has been created successfully.
+* **Auto Cleanup:** The raw MKV file is deleted only after the script confirms the new compressed file has been created successfully.
 
 ## Prerequisites
 
