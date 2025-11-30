@@ -31,7 +31,7 @@ All settings are managed in `config.py`. You do not need to edit any other files
 
 ### 1. Paths & Binaries
 * `drive_letter`: Your optical drive (e.g., `D:`).
-* `raw_directory`: Temporary storage for the massive raw rips (SSD recommended).
+* `raw_directory`: Temporary storage for the raw rips (SSD recommended with 100GB+ free space).
 * `encoded_directory`: Final destination for compressed files.
 * `makemkv_path` / `handbrake_path`: Set these to `None` to auto-detect. If the script cannot find them, paste the full path to the `.exe` (e.g., `r"C:\Program Files\HandBrake\HandBrakeCLI.exe"`).
 
