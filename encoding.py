@@ -1,6 +1,6 @@
-# encoding.py
 import threading
 from pathlib import Path
+from typing import Dict, Optional
 from config import cfg
 import utils
 
@@ -11,9 +11,6 @@ class EncodeWorker(threading.Thread):
         self.hb_bin = handbrake_bin
 
     def run(self):
-        """
-        The Immortal Loop. Catches all errors to keep the thread alive.
-        """
         while True:
             job = self.queue.get()
             if job is None: 
@@ -21,6 +18,8 @@ class EncodeWorker(threading.Thread):
                 break
             
             try:
+                # Unpack the job. 
+                # We use *job to handle cases where title_info might be missing (legacy/batch scripts)
                 self.process_job(*job)
             except Exception as e:
                 # CATCH-ALL: This prevents the thread from dying
@@ -32,13 +31,19 @@ class EncodeWorker(threading.Thread):
             finally:
                 self.queue.task_done()
 
-    def process_job(self, input_path: Path, label: str, log_path: Path):
+    def process_job(self, input_path: Path, label: str, log_path: Path, title_info: Optional[Dict] = None):
         dest_dir = cfg.encoded_directory / utils.sanitize_filename(label)
         utils.ensure_directory(dest_dir)
         output_mp4 = dest_dir / (input_path.stem + ".mp4")
 
-        utils.console(f"Encoding: {input_path.name}")
-        utils.append_log_line(log_path, f"ENC START {input_path}")
+        # Verbose Output
+        if title_info:
+            msg = f"Encoding: {label} Track {title_info['ID']} ({title_info['Length']} / {title_info['Size']})"
+        else:
+            msg = f"Encoding: {label} ({input_path.name})"
+
+        utils.console(msg)
+        utils.append_log_line(log_path, f"ENC START {msg}")
 
         args = [
             "-i", str(input_path),

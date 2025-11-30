@@ -1,21 +1,3 @@
-#  Auto_MKBrake
-#  Copyright (C) 2025 [Your Name]
-#
-#  This program is free software: you can redistribute it and/or modify
-#  it under the terms of the GNU General Public License as published by
-#  the Free Software Foundation, either version 3 of the License, or
-#  (at your option) any later version.
-#
-#  This program is distributed in the hope that it will be useful,
-#  but WITHOUT ANY WARRANTY; without even the implied warranty of
-#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#  GNU General Public License for more details.
-#
-#  You should have received a copy of the GNU General Public License
-#  along with this program.  If not, see <https://www.gnu.org/licenses/>.
-
-
-# main.py
 import time
 import queue
 from datetime import datetime
@@ -49,11 +31,10 @@ def main():
         utils.console(f"Setup Error: {e}"); return
 
     q = queue.Queue()
-    # Start the worker threads
     workers = [EncodeWorker(q, hb_bin) for _ in range(cfg.encoder_worker_threads)]
     for w in workers: w.start()
 
-    utils.console(f"AutoRipper Active. Waiting for discs in {cfg.drive_letter}...")
+    utils.console(f"Auto_MKBrake Active. Waiting for discs in {cfg.drive_letter}...")
 
     try:
         while True:
@@ -71,7 +52,6 @@ def main():
                 raw_dir = cfg.raw_directory / safe_lbl
                 utils.ensure_directory(raw_dir)
                 
-                # Create a fresh log file for this session
                 log_path = raw_dir / f"log_{datetime.now().strftime('%Y%m%d_%H%M%S')}.txt"
 
                 utils.console(f"Disc Found: {disc_lbl}")
@@ -85,25 +65,30 @@ def main():
 
                 # --- User Interaction ---
                 print(f"\n{'='*40}\n DISC: {disc_lbl}\n{'='*40}")
-                print(f" {'ID':<4} | {'Length':<10} | {'Size':<10}")
-                print(f" {'-'*4} + {'-'*10} + {'-'*10}")
+                print(f" {'Track':<5} | {'Length':<10} | {'Size':<10}")
+                print(f" {'-'*5} + {'-'*10} + {'-'*10}")
                 for t in titles:
-                    print(f" {t['ID']:<4} | {t['Length']:<10} | {t['Size']:<10}")
+                    print(f" {t['ID']:<5} | {t['Length']:<10} | {t['Size']:<10}")
                 print(f"{'='*40}")
                 
-                sel = input("\nEnter IDs to rip (e.g. 0,1 or 1-4 or all): ")
+                sel = input("\nEnter Track numbers to rip (e.g. 0,1 or 1-4 or all): ")
                 chosen = parse_selection(sel, valid_ids)
 
                 # --- Ripping Loop ---
                 if chosen:
-                    for t_id in chosen:
+                    for t_index in chosen:
                         try:
-                            mkv = disc_ops.rip_title(mkv_bin, cfg.drive_letter, raw_dir, t_id, log_path)
-                            # Pass the file to the encoding queue
-                            q.put((mkv, disc_lbl, log_path))
+                            # Retrieve full info for verbose logging
+                            target_title = next(t for t in titles if t['ID'] == t_index)
+                            
+                            # Pass full info to ripper
+                            mkv = disc_ops.rip_title(mkv_bin, cfg.drive_letter, raw_dir, target_title, disc_lbl, log_path)
+                            
+                            # Pass full info to encoder
+                            q.put((mkv, disc_lbl, log_path, target_title))
                         except Exception as e:
-                            utils.console(f"RIP ERROR on ID {t_id}: {e}")
-                            utils.append_log_line(log_path, f"RIP FAIL t{t_id}: {e}")
+                            utils.console(f"RIP ERROR on Track {t_index}: {e}")
+                            utils.append_log_line(log_path, f"RIP FAIL Track {t_index}: {e}")
                     
                     if cfg.eject_on_completion:
                         utils.console("Ripping complete. Ejecting...")
@@ -117,7 +102,6 @@ def main():
                 disc_ops.eject_disc(cfg.drive_letter)
                 time.sleep(5)
 
-            # Wait for physical removal
             while disc_ops.is_disc_present(cfg.drive_letter): time.sleep(2)
 
     except KeyboardInterrupt:

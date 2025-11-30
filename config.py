@@ -1,4 +1,3 @@
-# config.py
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Optional
@@ -11,6 +10,11 @@ class Configuration:
     raw_directory: Path = Path(r"C:\Raw")
     encoded_directory: Path = Path(r"G:\Encoded")
     
+    # Minimum length in seconds. 
+    # 300 = 5 minutes (Recommended to filter junk)
+    # 120 = 2 minutes (Use if you want special features)
+    min_title_length: int = 480
+
     # --- Binaries (None = Auto-detect) ---
     makemkv_path: Optional[str] = r"C:\Program Files (x86)\MakeMKV\makemkvcon64.exe"
     handbrake_path: Optional[str] = r"C:\Program Files\HandBrake\HandBrakeCLI.exe"
