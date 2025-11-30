@@ -1,8 +1,8 @@
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+
 # Auto_MKBrake
 
 **Auto_MKBrake** is a robust, concurrent pipeline for archiving Blu-ray and DVD media. It orchestrates `MakeMKV` and `HandBrakeCLI` to rip and encode media in parallel, significantly reducing the time required to process a batch of physical discs.
-
-[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
 ## Key Features
 
