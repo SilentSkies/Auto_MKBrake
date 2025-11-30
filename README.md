@@ -7,7 +7,7 @@
 ## Key Features
 
 * **Rip & Encode Simultaneously:** You don't have to wait for HandBrake to finish. As soon as the disc is ripped, it ejects, and the encoding starts in the background so you can pop in the next disc immediately.
-* **Manual Track Selection:** Some discs (especially from Lionsgate) hide the real movie inside hundreds of fake playlists to trick automation. This script pauses to let you pick the correct Title ID, ensuring you don't waste time ripping the wrong file.
+* **Manual Track Selection:** Some discs hide the real movie inside hundreds of fake playlists to trick automation. This script pauses to let you pick the correct Title ID, ensuring you don't waste time ripping the wrong file.
 * **Audio Safety:** By default, this script preserves 7.1 surround sound (converting to AAC) to ensure no channels are lost during downmixing. You can also switch this to "Passthrough" to keep the original audio exactly as it is on the disc.
 * **Smart Priority:** Encoding runs at a "Below Normal" system priority. This ensures your computer prioritises reading the disc first, which helps prevent read errors during the rip.
 * **Resilient:** If a specific file fails to encode, the script simply logs the error and moves on to the next job rather than stopping everything.
