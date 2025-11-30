@@ -46,7 +46,7 @@ Open `config.py` to adjust:
 1.  Open a terminal (Command Prompt or PowerShell) in the project folder.
 2.  Run the application:
     ```bash
-    python3 main.py
+    python main.py
     ```
 3.  **The Workflow:**
     * The script waits for a disc.
