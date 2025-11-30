@@ -31,7 +31,7 @@ Open `config.py` to adjust:
 
 * **Paths:**
     * `drive_letter`: Your optical drive (e.g., `D:`).
-    * `raw_directory`: Temporary storage for huge MKV files (SSD recommended).
+    * `raw_directory`: Temporary storage for large MKV files (SSD recommended).
     * `encoded_directory`: Final destination for compressed MP4 files.
 * **Binaries:**
     * If `makemkv_path` or `handbrake_path` are set to `None`, the script looks for them in your Windows System PATH. Otherwise, provide the full path to the `.exe`.
@@ -45,7 +45,7 @@ Open `config.py` to adjust:
 1.  Open a terminal (Command Prompt or PowerShell) in the project folder.
 2.  Run the application:
     ```bash
-    python main.py
+    python3 main.py
     ```
 3.  **The Workflow:**
     * The script waits for a disc.
