@@ -43,16 +43,16 @@ All settings are managed in `config.py`. You do not need to edit any other files
 
 Adjust `video_codec` and `video_quality` to balance speed vs. storage size.
 
-| Setting | Options | Description |
+| Setting | Options | Default | Description |
 | :--- | :--- | :--- |
-| **`video_codec`** | `nvenc_h265` | **(Default)** Nvidia GPU. Fast, high efficiency. |
-| | `nvenc_h264` | Nvidia GPU. Older format, highly compatible. |
-| | `x265` | CPU Only. Slow, but creates the smallest files. |
-| | `x264` | CPU Only. Industry standard compatibility. |
-| | `vce_h265` | AMD Radeon GPU encoding. |
-| | `qsv_h265` | Intel QuickSync (integrated graphics) encoding. |
-| **`video_quality`** | `20` - `28` | **RF/CQ Value.** Controls quality. <br>**Note:** The scale changes depending on the codec selected. <br>• **x264:** `20`-`23` is standard. <br>• **x265:** `24`-`28` <br>• **NVENC:** `20`-`25` `23` is a good middle ground. <br>Lower number = Higher quality (larger file). <br>This is largely down to personal preference. |
-| **`video_codec_preset`** | `p1` - `p7` | **(For NVENC)** `p7` is slowest/best, `p1` is fastest/worst. Default is `p5`. |
+| **`video_codec`** | `nvenc_h265` | Yes | Nvidia GPU. Fast, high efficiency. |
+| | `nvenc_h264` | | Nvidia GPU. Older format, highly compatible. |
+| | `x265` | | CPU Only. Slow, but creates the smallest files. |
+| | `x264` | | CPU Only. Industry standard compatibility. |
+| | `vce_h265` | | AMD Radeon GPU encoding. |
+| | `qsv_h265` | | Intel QuickSync (integrated graphics) encoding. |
+| **`video_quality`** | `20` - `28` | `23` | **RF/CQ Value.** Controls quality. <br>**Note:** The scale changes depending on the codec selected. <br>• **x264:** `20`-`23` is standard. <br>• **x265:** `24`-`28` <br>• **NVENC:** `20`-`25` `23` is a good middle ground. <br>Lower number = Higher quality (larger file). <br>This is largely down to personal preference. |
+| **`video_codec_preset`** | `p1` - `p7` | `p5` | **(For NVENC)** `p7` is slowest/best, `p1` is fastest/worst. Default is `p5`. |
 | | `slow` / `fast` | **(For CPU)** Use `slow`, `medium`, or `fast`. |
 
 ### 3. Audio Settings
