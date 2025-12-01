@@ -27,6 +27,11 @@ def main():
     try:
         mkv_bin = utils.resolve_binary(cfg.makemkv_path, "makemkvcon64")
         hb_bin = utils.resolve_binary(cfg.handbrake_path, "HandBrakeCLI")
+        
+        utils.console("Checking MakeMKV license status...")
+        disc_ops.verify_license(mkv_bin)
+        utils.console("License check passed.")
+        
     except Exception as e:
         utils.console(f"Setup Error: {e}"); return
 
@@ -65,13 +70,14 @@ def main():
 
                 # --- User Interaction ---
                 print(f"\n{'='*40}\n DISC: {disc_lbl}\n{'='*40}")
-                print(f" {'Track':<5} | {'Length':<10} | {'Size':<10}")
+                print(f" {'Index':<5} | {'Length':<10} | {'Size':<10}")
                 print(f" {'-'*5} + {'-'*10} + {'-'*10}")
                 for t in titles:
                     print(f" {t['ID']:<5} | {t['Length']:<10} | {t['Size']:<10}")
                 print(f"{'='*40}")
+                print(f"Tracks are filtered for your convenience. Minimum length to display {cfg.min_title_length//60} minutes.\n")
                 
-                sel = input("\nEnter Track numbers to rip (e.g. 0,1 or 1-4 or all): ")
+                sel = input("\nEnter selection to rip (e.g. 0,1 or 1-4 or all): ")
                 chosen = parse_selection(sel, valid_ids)
 
                 # --- Ripping Loop ---
