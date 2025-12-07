@@ -151,6 +151,7 @@ def rip_title(mkv_bin: str, drive: str, dest: Path, title_info: Dict, disc_label
         "mkv", f"dev:{drive}", str(t_index), str(dest), 
         "--decrypt", 
         "--cache=1024"
+        "--directio=true"
         # "--minlength" REMOVED to prevent indexing misalignment
     ]
     
