@@ -76,7 +76,8 @@ def main():
                     print(f" {t['ID']:<5} | {t['Length']:<10} | {t['Size']:<10}")
                 print(f"{'='*40}")
                 print(f"Tracks are filtered for your convenience. Minimum length to display {cfg.min_title_length//60} minutes.\n")
-                print(f"You may find that there is one large track either right at the beginning or right at the end of the set.\n This is often a combination of all tracks and should not be included.")
+                print("""You may find that there is one long track either at the first or last index, that is a total time of all titles on the disc.
+                      This is usually an attempt at obfuscation and is difficult to filter out, you should avoid ripping it.""")
                 
                 sel = input("\nEnter selection to rip (e.g. 0,1 or 1-4 or all): ")
                 chosen = parse_selection(sel, valid_ids)
