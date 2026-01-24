@@ -7,7 +7,6 @@
 ## Key Features
 
 * **Concurrent Workflow:** Rips and encodes in parallel. The drive ejects immediately after ripping so you can insert the next disc without waiting for the encoder.
-* **Manual Selection:** Pauses for Track ID selection to reliably bypass playlist obfuscation (common on Lionsgate discs).
 * **Optimised Defaults:** Configured for `nvenc_h265` (.mp4) and 7.1 AAC audio for high compatibility and speed. Settings are adjustable in `config.py`.
 * **Smart Priority:** Runs encoding at "Below Normal" priority to prevent resource starvation during disc reads.
 * **Resiliency & Cleanup:** Logs errors instead of crashing and deletes raw MKVs only after successful encoding verification.
